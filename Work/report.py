@@ -45,6 +45,15 @@ def create_report(portfolio, prices):
         rows.append(summary)
     return rows
 
+def print_report(report):
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    #print(headers)
+    print('%10s %10s %10s %10s' % headers)
+    print(('-' * 10 + ' ') * len(headers))
+    for row in report:
+        #print("%10s %10d %10.2f %10.2f" % row)
+        print('%10s %10d %10.2f %10.2f' %row)
+
 if len(sys.argv) == 3:
     filePortfolio = sys.argv[1]
     filePrices = sys.argv[2]
@@ -55,15 +64,7 @@ else:
 # Call Read data files function here
 portfolio = read_portfolio(filePortfolio)
 prices = read_prices(filePrices)
-#pprint(portfolio)
-#pprint(prices)
 # Create report
 report = create_report(portfolio, prices)
-#report output
-headers = ('Name', 'Shares', 'Price', 'Change')
-#print(headers)
-print('%10s %10s %10s %10s' % headers)
-print(('-' * 10 + ' ') * len(headers))
-for row in report:
-    #print("%10s %10d %10.2f %10.2f" % row)
-    print('%10s %10d %10.2f %10.2f' %row)
+# Call custome report print function
+print_report(report)
