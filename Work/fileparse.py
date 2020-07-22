@@ -8,7 +8,7 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 #def parse_csv(filename, select=None, types=None, has_headers=False):
     '''
     Parse a CSV file into a list of records
-    '''
+    '''   
     with open(filename) as f:
         rows = csv.reader(f, delimiter=delimiter)
        
@@ -25,14 +25,18 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             indices = []
 
         records = []
-        for row in rows:
+        for rowno, row in enumerate(rows, 1):
             if not row:    # Skip rows with no data
                 continue
             # Filter the row if specific columns were selected
             if indices:
                 row = [ row[index] for index in indices ]
             if types:
-                row = [func(val) for func, val in zip(types, row) ]
+                try:
+                    row = [func(val) for func, val in zip(types, row) ]
+                except ValueError as e:
+                    print(f"Row {rowno}: Couldn't convert {row}")
+                    print(f"Row {rowno}: Reason {e}")
 
             # Make a dictionary
             if has_headers:
@@ -48,10 +52,10 @@ if len(sys.argv) == 2:
 else:
     csvfilepath = 'data/missing.csv'
 # Exercise 3.9: Catching exceptions
-try:
-    read_csv = parse_csv(csvfilepath, types=[str, int, float])
-except (IOError,LookupError,RuntimeError) as e:    
-    raise   
+#try:
+read_csv = parse_csv(csvfilepath, types=[str, int, float])
+#except (IOError,LookupError,RuntimeError, ValueError) as e:    
+    #raise
 #read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
 
 print(read_csv)
