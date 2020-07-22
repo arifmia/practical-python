@@ -46,12 +46,12 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
-    csvfilepath = 'data/prices.csv'
-# Exercise 3.8: Raising exceptions
+    csvfilepath = 'data/missing.csv'
+# Exercise 3.9: Catching exceptions
 try:
-    read_csv = parse_csv(csvfilepath, select=['name','price'], has_headers=False)
+    read_csv = parse_csv(csvfilepath, types=[str, int, float])
 except (IOError,LookupError,RuntimeError) as e:    
-    raise RuntimeError    
+    raise   
 #read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
 
 print(read_csv)
