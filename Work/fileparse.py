@@ -46,6 +46,6 @@ if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
     csvfilepath = 'data/prices.csv'
-
+# Exercise 3.6: Working without Headers
 read_csv = parse_csv(csvfilepath, types=[str,float], has_headers=False)
 print(read_csv)
