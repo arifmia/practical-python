@@ -4,7 +4,7 @@
 import sys
 import csv
 
-def parse_csv(filename, select=None, types=None):
+def parse_csv(filename, select=None, types=None, has_headers=False):
     '''
     Parse a CSV file into a list of records
     '''
@@ -12,7 +12,8 @@ def parse_csv(filename, select=None, types=None):
         rows = csv.reader(f)
 
         # Read the file headers
-        headers = next(rows)
+        if has_headers:
+            headers = next(rows)
 
         # If a column selector was given, find indices of the specified columns.
         # Also narrow the set of headers used for resulting dictionaries
@@ -33,15 +34,18 @@ def parse_csv(filename, select=None, types=None):
                 row = [func(val) for func, val in zip(types, row) ]
 
             # Make a dictionary
-            record = dict(zip(headers, row))
-            records.append(record)
+            if has_headers:
+                record = dict(zip(headers, row))
+                records.append(record)
+            else:
+                records.append(row)
 
     return records
 
 if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
-    csvfilepath = 'data/portfolio.csv'
+    csvfilepath = 'data/prices.csv'
 
-read_csv = parse_csv(csvfilepath, select=['name','shares'], types=[str, int])
+read_csv = parse_csv(csvfilepath, types=[str,float], has_headers=False)
 print(read_csv)
