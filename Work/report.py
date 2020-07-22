@@ -54,17 +54,21 @@ def print_report(report):
         #print("%10s %10d %10.2f %10.2f" % row)
         print('%10s %10d %10.2f %10.2f' %row)
 
+def portfolio_report(filePortfolio, filePrices):
+    # Call Read data files function here
+    portfolio = read_portfolio(filePortfolio)
+    prices = read_prices(filePrices)
+    # Create report
+    report = create_report(portfolio, prices)
+    # Call custome report print function
+    print_report(report)
+
 if len(sys.argv) == 3:
     filePortfolio = sys.argv[1]
     filePrices = sys.argv[2]
 else:
-    filePortfolio = 'data/portfoliodate.csv'
+    filePortfolio = 'data/portfolio.csv'
     filePrices = 'data/prices.csv'
 
-# Call Read data files function here
-portfolio = read_portfolio(filePortfolio)
-prices = read_prices(filePrices)
-# Create report
-report = create_report(portfolio, prices)
-# Call custome report print function
-print_report(report)
+# Call this single function to produce the report
+portfolio_report(filePortfolio, filePrices)
