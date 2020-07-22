@@ -4,12 +4,13 @@
 import sys
 import csv
 
-def parse_csv(filename, select=None, types=None, has_headers=False, delimiter=None):
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','):
+#def parse_csv(filename, select=None, types=None, has_headers=False):
     '''
     Parse a CSV file into a list of records
     '''
     with open(filename) as f:
-        rows = csv.reader(f, delimiter=' ')
+        rows = csv.reader(f, delimiter=delimiter)
        
         # Read the file headers
         if has_headers:
@@ -45,7 +46,12 @@ def parse_csv(filename, select=None, types=None, has_headers=False, delimiter=No
 if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
-    csvfilepath = 'data/portfolio.dat'
-# Exercise 3.7: Picking a different column delimitier
-read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
+    csvfilepath = 'data/prices.csv'
+# Exercise 3.8: Raising exceptions
+try:
+    read_csv = parse_csv(csvfilepath, select=['name','price'], has_headers=False)
+except (IOError,LookupError,RuntimeError) as e:    
+    raise RuntimeError    
+#read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
+
 print(read_csv)
