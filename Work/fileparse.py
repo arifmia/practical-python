@@ -4,7 +4,7 @@
 import sys
 import csv
 
-def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','):
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
 #def parse_csv(filename, select=None, types=None, has_headers=False):
     '''
     Parse a CSV file into a list of records
@@ -35,8 +35,10 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
                 try:
                     row = [func(val) for func, val in zip(types, row) ]
                 except ValueError as e:
-                    print(f"Row {rowno}: Couldn't convert {row}")
-                    print(f"Row {rowno}: Reason {e}")
+                    if not silence_errors:
+                        print(f"Row {rowno}: Couldn't convert {row}")
+                        print(f"Row {rowno}: Reason {e}")
+                    continue
 
             # Make a dictionary
             if has_headers:
@@ -51,9 +53,9 @@ if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
     csvfilepath = 'data/missing.csv'
-# Exercise 3.9: Catching exceptions
+# Exercise 3.10: Silencing Errors
 #try:
-read_csv = parse_csv(csvfilepath, types=[str, int, float])
+read_csv = parse_csv(csvfilepath, types=[str, int, float], silence_errors=True)
 #except (IOError,LookupError,RuntimeError, ValueError) as e:    
     #raise
 #read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
