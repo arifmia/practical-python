@@ -60,4 +60,4 @@ read_csv = parse_csv(csvfilepath, types=[str, int, float], silence_errors=True)
     #raise
 #read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
 
-print(read_csv)
+#print(read_csv)

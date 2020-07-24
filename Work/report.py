@@ -37,7 +37,7 @@ def portfolio_report(filePortfolio, filePrices):
     # Create report
     report = create_report(portfolio, prices)
     # Call custome report print function
-    print_report(report)
+    #print_report(report)
 
 if len(sys.argv) == 3:
     filePortfolio = sys.argv[1]
