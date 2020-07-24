@@ -46,6 +46,6 @@ else:
     filePortfolio = 'data/portfolio.csv'
     filePrices = 'data/prices.csv'
 
-# Exercise 3.11: Module imports
+# Exercise 3.12: Using your library module
 # Call this single function to produce the report
 portfolio_report(filePortfolio, filePrices)
