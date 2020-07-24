@@ -3,13 +3,15 @@
 # Exercise 3.3
 import sys
 import csv
+import gzip
 
 def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
 #def parse_csv(filename, select=None, types=None, has_headers=False):
     '''
     Parse a CSV file into a list of records
     '''   
-    with open(filename) as f:
+    #with open(filename) as f:
+    with gzip.open(filename, 'rt') as f:
         rows = csv.reader(f, delimiter=delimiter)
        
         # Read the file headers
@@ -52,12 +54,15 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 if len(sys.argv) == 2:
     csvfilepath = sys.argv[1]
 else:
-    csvfilepath = 'data/missing.csv'
-# Exercise 3.10: Silencing Errors
+    csvfilepath = 'data/portfolio.csv.gz'
+    #csvfilepath = 'data/missing.csv'
+
+# Exercise 3.17: From filenames to file-like objects
 #try:
-read_csv = parse_csv(csvfilepath, types=[str, int, float], silence_errors=True)
+#read_csv = parse_csv(csvfilepath, types=[str, int, float], silence_errors=True)
+read_csv = parse_csv(csvfilepath, types=[str, int, float])
 #except (IOError,LookupError,RuntimeError, ValueError) as e:    
     #raise
 #read_csv = parse_csv(csvfilepath, types=[str, int, float], has_headers=True, delimiter=' ')
 
-#print(read_csv)
+print(read_csv)
