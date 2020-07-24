@@ -39,7 +39,7 @@ def portfolio_report(filePortfolio, filePrices):
     # Call custome report print function
     print_report(report)
 
-# Exercise 3.15: main() functions
+# Exercise 3.16: Making Scripts
 # Main function
 def main(argv):
     # Parse command line args, environment, etc.   
