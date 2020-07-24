@@ -21,7 +21,7 @@ def portfolio_cost(filename):
                 print(f'Row {rowno}: Bad row: {row}')
     return totalcost
 
-# Exercise 3.15: main() functions
+# Exercise 3.16: Making Scripts
 # Main function
 def main(argv):
     if len(sys.argv) == 2:
