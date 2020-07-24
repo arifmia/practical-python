@@ -4,37 +4,13 @@
 import sys
 import csv
 from pprint import pprint
+import fileparse
 
 def read_portfolio(filename):
-    portfolio = []
-    with open(filename, 'rt') as file:
-        rows = csv.reader(file)
-        headers = next(rows)
-        for rowno, row in enumerate(rows, start=1):
-            record = dict(zip(headers, row))
-            #print(record)
-            try:
-                stock = {
-                    'name'   : record['name'],
-                    'shares' : int(record['shares']),
-                    'price'   : float(record['price'])
-                }
-                portfolio.append(stock)
-            except ValueError:
-                print(f'Row {rowno}: Bad row: {row}')
-    return portfolio
+    return fileparse.parse_csv(filename, select=['name','shares','price'], types=[str,int,float])
 
 def read_prices(filename):
-    prices = {}
-    with open(filename, 'rt') as file:
-        rows = csv.reader(file)
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                pass
-
-    return prices
+    return dict(fileparse.parse_csv(filename,types=[str,float], has_headers=False))
 
 def create_report(portfolio, prices):
     rows = []
@@ -70,5 +46,6 @@ else:
     filePortfolio = 'data/portfolio.csv'
     filePrices = 'data/prices.csv'
 
+# Exercise 3.11: Module imports
 # Call this single function to produce the report
 portfolio_report(filePortfolio, filePrices)
