@@ -21,12 +21,18 @@ def portfolio_cost(filename):
                 print(f'Row {rowno}: Bad row: {row}')
     return totalcost
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'data/portfolio.csv'
-    #filename = 'data/portfoliodate.csv'
+# Exercise 3.15: main() functions
+# Main function
+def main(argv):
+    if len(sys.argv) == 2:
+        #filename = sys.argv[1]
+        cost = portfolio_cost(sys.argv[1])
+        print('Total cost: ', cost)
+    else:
+        raise SystemExit('Usage: %s portfoliofile' % argv[0])
+        #filename = 'data/portfolio.csv'
+        #filename = 'data/portfoliodate.csv'
 
-# Exercise 3.14: Using more library imports
-cost = portfolio_cost(filename)
-print('Total cost: ', cost)
+if __name__ == '__main__':    
+    main(sys.argv)
+
