@@ -37,15 +37,23 @@ def portfolio_report(filePortfolio, filePrices):
     # Create report
     report = create_report(portfolio, prices)
     # Call custome report print function
-    #print_report(report)
+    print_report(report)
 
-if len(sys.argv) == 3:
-    filePortfolio = sys.argv[1]
-    filePrices = sys.argv[2]
-else:
-    filePortfolio = 'data/portfolio.csv'
-    filePrices = 'data/prices.csv'
-
-# Exercise 3.12: Using your library module
+# Exercise 3.15: main() functions
+# Main function
+def main(argv):
+    # Parse command line args, environment, etc.   
+    if len(sys.argv) == 3:
+        #filePortfolio = sys.argv[1]
+        #filePrices = sys.argv[2]
+        portfolio_report(sys.argv[1], sys.argv[2])
+    else:
+        raise SystemExit('Usage: %s portfoliofile pricefile' % argv[0])
+        #filePortfolio = 'data/portfolio.csv'
+        #filePrices = 'data/prices.csv'
+    
 # Call this single function to produce the report
-portfolio_report(filePortfolio, filePrices)
+#portfolio_report(filePortfolio, filePrices)
+
+if __name__ == '__main__':    
+    main(sys.argv)
